@@ -1,0 +1,10 @@
+# Symfony directories
+vendor/*
+*/logs/*
+*/cache/*
+web/uploads/*
+web/bundles/*
+
+# Composer
+composer.phar
+
