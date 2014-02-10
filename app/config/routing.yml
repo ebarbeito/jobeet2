@@ -1,0 +1,4 @@
+ebarbeito_jobeet:
+    resource: "@ebarbeitoJobeetBundle/Resources/config/routing.yml"
+    prefix:   /
+
