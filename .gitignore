@@ -8,3 +8,5 @@ web/bundles/*
 # Composer
 composer.phar
 
+# other
+nbproject/
