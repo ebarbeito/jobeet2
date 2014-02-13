@@ -3,5 +3,5 @@ ebarbeitoJobeetBundle_job:
     prefix:   /job
         
 ebarbeito_jobeet_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: ebarbeitoJobeetBundle:Default:index }
+    pattern:  /
+    defaults: { _controller: ebarbeitoJobeetBundle:Job:index }

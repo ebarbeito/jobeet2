@@ -2,23 +2,23 @@
 
 {% block stylesheets %}
   {{ parent() }}
-  <link rel="stylesheet" href="{{ asset('bundles/ebarbeitojobeet/css/jobs.css') }}" type="text/css" media="all" />
+<link rel="stylesheet" href="{{ asset('bundles/ebarbeitojobeet/css/jobs.css') }}" type="text/css" media="all" />
 {% endblock %}
 
 {% block content %}
-  <div id="jobs">
-      <table class="jobs">
+<div id="jobs">
+  <table class="jobs">
           {% for entity in entities %}
-              <tr class="{{ cycle(['even', 'odd'], loop.index) }}">
-                  <td class="location">{{ entity.location }}</td>
-                  <td class="position">
-                      <a href="{{ path('ebarbeito_job_show', { 'id': entity.id }) }}">
-                          {{ entity.position }}
-                      </a>
-                  </td>
-                  <td class="company">{{ entity.company }}</td>
-              </tr>
+    <tr class="{{ cycle(['even', 'odd'], loop.index) }}">
+      <td class="location">{{ entity.location }}</td>
+      <td class="position">
+        <a href="{{ path('ebarbeito_job_show', { 'id': entity.id, 'company': entity.companyslug, 'location': entity.locationslug, 'position': entity.positionslug}) }}">
+          {{ entity.position }}
+        </a>
+      </td>
+      <td class="company">{{ entity.company }}</td>
+    </tr>
           {% endfor %}
-      </table>
-  </div>
+  </table>
+</div>
 {% endblock %}
