@@ -8,5 +8,8 @@ web/bundles/*
 # Composer
 composer.phar
 
+# Application assets
+src/ebarbeito/JobeetBundle/Resources/public/images/*
+
 # other
 nbproject/

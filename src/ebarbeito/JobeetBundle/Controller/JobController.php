@@ -19,7 +19,6 @@ class JobController extends Controller {
    */
   public function indexAction() {
     $em = $this->getDoctrine()->getManager();
-
     $entities = $em->getRepository('ebarbeitoJobeetBundle:Job')->findAll();
 
     return $this->render('ebarbeitoJobeetBundle:Job:index.html.twig', array(
@@ -88,7 +87,6 @@ class JobController extends Controller {
    */
   public function showAction($id) {
     $em = $this->getDoctrine()->getManager();
-
     $entity = $em->getRepository('ebarbeitoJobeetBundle:Job')->find($id);
 
     if (!$entity) {
@@ -108,7 +106,6 @@ class JobController extends Controller {
    */
   public function editAction($id) {
     $em = $this->getDoctrine()->getManager();
-
     $entity = $em->getRepository('ebarbeitoJobeetBundle:Job')->find($id);
 
     if (!$entity) {
@@ -149,7 +146,6 @@ class JobController extends Controller {
    */
   public function updateAction(Request $request, $id) {
     $em = $this->getDoctrine()->getManager();
-
     $entity = $em->getRepository('ebarbeitoJobeetBundle:Job')->find($id);
 
     if (!$entity) {
