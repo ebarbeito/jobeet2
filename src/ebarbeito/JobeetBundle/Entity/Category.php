@@ -7,133 +7,128 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Category
  */
-class Category
-{
-    /**
-     * @var integer
-     */
-    private $id;
+class Category {
 
-    /**
-     * @var string
-     */
-    private $name;
+  /**
+   * @var integer
+   */
+  private $id;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $jobs;
+  /**
+   * @var string
+   */
+  private $name;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $affiliates;
+  /**
+   * @var \Doctrine\Common\Collections\Collection
+   */
+  private $jobs;
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->jobs = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->affiliates = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+  /**
+   * @var \Doctrine\Common\Collections\Collection
+   */
+  private $affiliates;
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+  /**
+   * Constructor
+   */
+  public function __construct() {
+    $this->jobs = new \Doctrine\Common\Collections\ArrayCollection();
+    $this->affiliates = new \Doctrine\Common\Collections\ArrayCollection();
+  }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return Category
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
+  /**
+   * Get id
+   *
+   * @return integer 
+   */
+  public function getId() {
+    return $this->id;
+  }
 
-        return $this;
-    }
+  /**
+   * Set name
+   *
+   * @param string $name
+   * @return Category
+   */
+  public function setName($name) {
+    $this->name = $name;
 
-    /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
+    return $this;
+  }
 
-    /**
-     * Add jobs
-     *
-     * @param \ebarbeito\JobeetBundle\Entity\Job $jobs
-     * @return Category
-     */
-    public function addJob(\ebarbeito\JobeetBundle\Entity\Job $jobs)
-    {
-        $this->jobs[] = $jobs;
+  /**
+   * Get name
+   *
+   * @return string 
+   */
+  public function getName() {
+    return $this->name;
+  }
 
-        return $this;
-    }
+  /**
+   * Add jobs
+   *
+   * @param \ebarbeito\JobeetBundle\Entity\Job $jobs
+   * @return Category
+   */
+  public function addJob(\ebarbeito\JobeetBundle\Entity\Job $jobs) {
+    $this->jobs[] = $jobs;
 
-    /**
-     * Remove jobs
-     *
-     * @param \ebarbeito\JobeetBundle\Entity\Job $jobs
-     */
-    public function removeJob(\ebarbeito\JobeetBundle\Entity\Job $jobs)
-    {
-        $this->jobs->removeElement($jobs);
-    }
+    return $this;
+  }
 
-    /**
-     * Get jobs
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getJobs()
-    {
-        return $this->jobs;
-    }
+  /**
+   * Remove jobs
+   *
+   * @param \ebarbeito\JobeetBundle\Entity\Job $jobs
+   */
+  public function removeJob(\ebarbeito\JobeetBundle\Entity\Job $jobs) {
+    $this->jobs->removeElement($jobs);
+  }
 
-    /**
-     * Add affiliates
-     *
-     * @param \ebarbeito\JobeetBundle\Entity\Affiliate $affiliates
-     * @return Category
-     */
-    public function addAffiliate(\ebarbeito\JobeetBundle\Entity\Affiliate $affiliates)
-    {
-        $this->affiliates[] = $affiliates;
+  /**
+   * Get jobs
+   *
+   * @return \Doctrine\Common\Collections\Collection 
+   */
+  public function getJobs() {
+    return $this->jobs;
+  }
 
-        return $this;
-    }
+  /**
+   * Add affiliates
+   *
+   * @param \ebarbeito\JobeetBundle\Entity\Affiliate $affiliates
+   * @return Category
+   */
+  public function addAffiliate(\ebarbeito\JobeetBundle\Entity\Affiliate $affiliates) {
+    $this->affiliates[] = $affiliates;
 
-    /**
-     * Remove affiliates
-     *
-     * @param \ebarbeito\JobeetBundle\Entity\Affiliate $affiliates
-     */
-    public function removeAffiliate(\ebarbeito\JobeetBundle\Entity\Affiliate $affiliates)
-    {
-        $this->affiliates->removeElement($affiliates);
-    }
+    return $this;
+  }
 
-    /**
-     * Get affiliates
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getAffiliates()
-    {
-        return $this->affiliates;
-    }
+  /**
+   * Remove affiliates
+   *
+   * @param \ebarbeito\JobeetBundle\Entity\Affiliate $affiliates
+   */
+  public function removeAffiliate(\ebarbeito\JobeetBundle\Entity\Affiliate $affiliates) {
+    $this->affiliates->removeElement($affiliates);
+  }
+
+  /**
+   * Get affiliates
+   *
+   * @return \Doctrine\Common\Collections\Collection 
+   */
+  public function getAffiliates() {
+    return $this->affiliates;
+  }
+
+  public function __toString() {
+    return $this->getName() ? $this->getName() : "";
+  }
+
 }

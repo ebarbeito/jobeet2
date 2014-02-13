@@ -1,3 +1,7 @@
+ebarbeitoJobeetBundle_job:
+    resource: "@ebarbeitoJobeetBundle/Resources/config/routing/job.yml"
+    prefix:   /job
+        
 ebarbeito_jobeet_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: ebarbeitoJobeetBundle:Default:index }
