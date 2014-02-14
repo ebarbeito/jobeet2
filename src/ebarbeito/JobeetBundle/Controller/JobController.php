@@ -91,9 +91,10 @@ class JobController extends Controller {
    */
   public function showAction($id) {
     $em = $this->getDoctrine()->getManager();
-    $entity = $em->getRepository('ebarbeitoJobeetBundle:Job')->find($id);
+    $entity = $em->getRepository('ebarbeitoJobeetBundle:Job')->getActiveJob($id);
 
     if (!$entity) {
+      // throwable url: /app_dev.php/job/sensio-labs/paris-france/ID/web-developer-expired
       throw $this->createNotFoundException('Unable to find Job entity.');
     }
 
