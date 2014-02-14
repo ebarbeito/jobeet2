@@ -19,10 +19,14 @@ class JobController extends Controller {
    */
   public function indexAction() {
     $em = $this->getDoctrine()->getManager();
-    $entities = $em->getRepository('ebarbeitoJobeetBundle:Job')->getActiveJobs();
+    $categories = $em->getRepository('ebarbeitoJobeetBundle:Category')->getWithJobs();
+
+    foreach ($categories as $category) {
+      $category->setActiveJobs($em->getRepository('ebarbeitoJobeetBundle:Job')->getActiveJobs($category->getId()));
+    }
 
     return $this->render('ebarbeitoJobeetBundle:Job:index.html.twig', array(
-                'entities' => $entities
+                'categories' => $categories
     ));
   }
 
