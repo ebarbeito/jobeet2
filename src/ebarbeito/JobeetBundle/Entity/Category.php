@@ -3,6 +3,7 @@
 namespace ebarbeito\JobeetBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ebarbeito\JobeetBundle\Utils\Jobeet as Jobeet;
 
 /**
  * Category
@@ -20,6 +21,11 @@ class Category {
   private $name;
 
   /**
+   * @var string
+   */
+  private $slug;
+
+  /**
    * @var \Doctrine\Common\Collections\Collection
    */
   private $jobs;
@@ -28,6 +34,11 @@ class Category {
    * @var \Doctrine\Common\Collections\Collection
    */
   private $affiliates;
+
+  /**
+   * @var type 
+   */
+  private $more_jobs;
 
   /**
    * Constructor
@@ -65,6 +76,27 @@ class Category {
    */
   public function getName() {
     return $this->name;
+  }
+
+  /**
+   * Set slug
+   *
+   * @param string $slug
+   * @return Category
+   */
+  public function setSlug($slug) {
+    $this->slug = $slug;
+
+    return $this;
+  }
+
+  /**
+   * Get slug
+   *
+   * @return string 
+   */
+  public function getSlug() {
+    return $this->slug;
   }
 
   /**
@@ -133,6 +165,18 @@ class Category {
 
   public function getActiveJobs() {
     return $this->active_jobs;
+  }
+
+  public function setMoreJobs($jobs) {
+    $this->more_jobs = $jobs >= 0 ? $jobs : 0;
+  }
+
+  public function getMoreJobs() {
+    return $this->more_jobs;
+  }
+
+  public function setSlugValue() {
+    $this->slug = Jobeet::slugify($this->getName());
   }
 
   public function __toString() {

@@ -9,7 +9,6 @@ use ebarbeito\JobeetBundle\Form\JobType;
 
 /**
  * Job controller.
- *
  */
 class JobController extends Controller {
 
@@ -23,6 +22,7 @@ class JobController extends Controller {
 
     foreach ($categories as $category) {
       $category->setActiveJobs($em->getRepository('ebarbeitoJobeetBundle:Job')->getActiveJobs($category->getId(), $this->container->getParameter('max_jobs_on_homepage')));
+      $category->setMoreJobs($em->getRepository('ebarbeitoJobeetBundle:Job')->countActiveJobs($category->getId()) - $this->container->getParameter('max_jobs_on_homepage'));
     }
 
     return $this->render('ebarbeitoJobeetBundle:Job:index.html.twig', array(
