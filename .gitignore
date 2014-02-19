@@ -4,6 +4,7 @@ vendor/*
 */cache/*
 web/uploads/*
 web/bundles/*
+web/cov/*
 
 # Composer
 composer.phar
