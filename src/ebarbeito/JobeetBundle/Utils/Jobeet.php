@@ -22,11 +22,7 @@ class Jobeet {
     // remove unwanted characters
     $text = preg_replace('#[^-\w]+#', '', $text);
 
-    if (empty($text)) {
-      return 'n-a';
-    }
-
-    return $text;
+    return (!empty($text) ? $text : 'n-a');
   }
 
 }
