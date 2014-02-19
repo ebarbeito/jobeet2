@@ -5,6 +5,10 @@ ebarbeitoJobeetBundle_job:
 ebarbeitoJobeetBundle_category:
     pattern: /category/{slug}/{page}
     defaults: { _controller: ebarbeitoJobeetBundle:Category:show, page: 1 }
+
+ebarbeitoJobeetBundle_hello:
+    pattern:  /hello/{name}
+    defaults: { _controller: ebarbeitoJobeetBundle:Default:index }
         
 ebarbeito_jobeet_homepage:
     pattern:  /
