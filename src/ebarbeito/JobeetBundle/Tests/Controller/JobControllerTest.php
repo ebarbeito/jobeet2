@@ -90,6 +90,21 @@ class JobControllerTest extends WebTestCase {
 
     return $query->getSingleResult();
   }
+  
+  public function testDelete() {
+    $job = $this->getMostRecentProgrammingJob();
+    $pathLogo = $job->getAbsolutePath();
+    
+    $client = static::createClient();
+    $crawler = $client->request('GET', '/job/' . $job->getId() . '/edit');
+    $this->assertEquals('ebarbeito\JobeetBundle\Controller\JobController::editAction', $client->getRequest()->attributes->get('_controller'));
+    
+    $form = $crawler->selectButton('Delete')->form();
+    $client->submit($form);
+    $client->followRedirect();
+    $this->assertEquals('ebarbeito\JobeetBundle\Controller\JobController::indexAction', $client->getRequest()->attributes->get('_controller'));
+    $this->assertFileNotExists($pathLogo);
+  }
 
   public function testIndex() {
     // get the custom parameters from app config.yml

@@ -22,3 +22,5 @@ ebarbeito\JobeetBundle\Entity\Job:
             - Email: ~
         url:
             - Url: ~
+        file:
+            - Image: ~

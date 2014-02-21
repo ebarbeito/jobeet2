@@ -11,6 +11,11 @@ use ebarbeito\JobeetBundle\Utils\Jobeet as Jobeet;
 class Job {
 
   /**
+   * @var UploadedFile
+   */
+  public $file;
+
+  /**
    * @var integer
    */
   private $id;
@@ -97,9 +102,9 @@ class Job {
 
   public static function getTypes() {
     return array(
-      'full-time' => 'Full time', 
-      'part-time' => 'Part time', 
-      'freelance' => 'Freelance'
+        'full-time' => 'Full time',
+        'part-time' => 'Part time',
+        'freelance' => 'Freelance'
     );
   }
 
@@ -455,6 +460,15 @@ class Job {
   /**
    * @ORM\PrePersist
    */
+  public function preUpload() {
+    if (null !== $this->file) {
+      $this->logo = uniqid() . '.' . $this->file->guessExtension();
+    }
+  }
+
+  /**
+   * @ORM\PrePersist
+   */
   public function setCreatedAtValue() {
     if (!$this->getCreatedAt()) {
       $this->created_at = new \DateTime();
@@ -478,6 +492,32 @@ class Job {
     }
   }
 
+  /**
+   * @ORM\PostPersist
+   */
+  public function upload() {
+    if (null === $this->file) {
+      return;
+    }
+
+    // If there is an error when moving the file, an exception will
+    // be automatically thrown by move(). This will properly prevent
+    // the entity from being persisted to the database on error
+    $this->file->move($this->getUploadRootDir(), $this->logo);
+
+    unset($this->file);
+  }
+
+  /**
+   * @ORM\PostRemove
+   */
+  public function removeUpload() {
+    $file = $this->getAbsolutePath();
+    if (file_exists($file)) {
+      unlink($file);
+    }
+  }
+
   public function getCompanySlug() {
     return Jobeet::slugify($this->getCompany());
   }
@@ -488,6 +528,22 @@ class Job {
 
   public function getLocationSlug() {
     return Jobeet::slugify($this->getLocation());
+  }
+
+  protected function getUploadDir() {
+    return 'uploads/jobs';
+  }
+
+  protected function getUploadRootDir() {
+    return __DIR__ . '/../../../../web/' . $this->getUploadDir();
+  }
+
+  public function getWebPath() {
+    return null === $this->logo ? null : $this->getUploadDir() . '/' . $this->logo;
+  }
+
+  public function getAbsolutePath() {
+    return null === $this->logo ? null : $this->getUploadRootDir() . '/' . $this->logo;
   }
 
 }
