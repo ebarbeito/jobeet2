@@ -14,6 +14,11 @@ ebarbeito_job_preview:
     requirements:
         token:  \w+
 
+ebarbeito_job_publish:
+    pattern:  /{token}/publish
+    defaults: { _controller: "ebarbeitoJobeetBundle:Job:publish" }
+    requirements: { _method: post }
+
 ebarbeito_job_new:
     pattern:  /new
     defaults: { _controller: "ebarbeitoJobeetBundle:Job:new" }

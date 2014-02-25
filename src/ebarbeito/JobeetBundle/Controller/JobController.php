@@ -122,12 +122,45 @@ class JobController extends Controller {
       throw $this->createNotFoundException('Unable to find Job entity.');
     }
 
-    $deleteForm = $this->createDeleteForm($entity->getId());
+    $deleteForm = $this->createDeleteForm($entity->getToken());
+    $publishForm = $this->createPublishForm($entity->getToken());
 
     return $this->render('ebarbeitoJobeetBundle:Job:show.html.twig', array(
       'entity' => $entity,
       'delete_form' => $deleteForm->createView(),
+      'publish_form' => $publishForm->createView(),
     ));
+  }
+  
+  /**
+   * 
+   * 
+   */
+  public function publishAction(Request $request, $token) {
+    $form = $this->createPublishForm($token);
+    $form->bind($request);
+
+    if ($form->isValid()) {
+      $em = $this->getDoctrine()->getManager();
+      $entity = $em->getRepository('ebarbeitoJobeetBundle:Job')->findOneByToken($token);
+
+      if (!$entity) {
+        throw $this->createNotFoundException('Unable to find Job entity.');
+      }
+
+      $entity->publish();
+      $em->persist($entity);
+      $em->flush();
+
+      $this->get('session')->getFlashBag()->add('notice', 'Your job is now online for 30 days.');
+    }
+
+    return $this->redirect($this->generateUrl('ebarbeito_job_preview', array(
+      'company' => $entity->getCompanySlug(),
+      'location' => $entity->getLocationSlug(),
+      'token' => $entity->getToken(),
+      'position' => $entity->getPositionSlug()
+    )));
   }
 
   /**
@@ -150,6 +183,17 @@ class JobController extends Controller {
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
     ));
+  }
+  
+  /**
+   * Creates a form to publish a Job entity
+   * @param type $token
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createPublishForm($token) {
+    return $this->createFormBuilder(array('token' => $token))
+      ->add('token', 'hidden')
+      ->getForm();
   }
 
   /**
