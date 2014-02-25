@@ -46,7 +46,7 @@ class JobController extends Controller {
       return $this->redirect($this->generateUrl('ebarbeito_job_preview', array(
         'company' => $entity->getCompanySlug(),
         'location' => $entity->getLocationSlug(),
-        'id' => $entity->getId(),
+        'token' => $entity->getToken(),
         'position' => $entity->getPositionSlug()
       )));
     }
