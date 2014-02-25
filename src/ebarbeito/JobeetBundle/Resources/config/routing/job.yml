@@ -18,15 +18,15 @@ ebarbeito_job_create:
     requirements: { _method: post }
 
 ebarbeito_job_edit:
-    pattern:  /{id}/edit
+    pattern:  /{token}/edit
     defaults: { _controller: "ebarbeitoJobeetBundle:Job:edit" }
 
 ebarbeito_job_update:
-    pattern:  /{id}/update
+    pattern:  /{token}/update
     defaults: { _controller: "ebarbeitoJobeetBundle:Job:update" }
     requirements: { _method: post|put }
 
 ebarbeito_job_delete:
-    pattern:  /{id}/delete
+    pattern:  /{token}/delete
     defaults: { _controller: "ebarbeitoJobeetBundle:Job:delete" }
     requirements: { _method: post|delete }
