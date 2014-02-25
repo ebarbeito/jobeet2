@@ -29,7 +29,7 @@ class JobController extends Controller {
       'categories' => $categories
     ));
   }
-
+  
   /**
    * Creates a new Job entity.
    *
@@ -43,7 +43,7 @@ class JobController extends Controller {
       $em->persist($entity);
       $em->flush();
 
-      return $this->redirect($this->generateUrl('ebarbeito_job_show', array(
+      return $this->redirect($this->generateUrl('ebarbeito_job_preview', array(
         'company' => $entity->getCompanySlug(),
         'location' => $entity->getLocationSlug(),
         'id' => $entity->getId(),
@@ -109,6 +109,26 @@ class JobController extends Controller {
       'entity' => $entity,
       'delete_form' => $deleteForm->createView(),));
   }
+  
+  /**
+   * Find and previews a Job entity
+   * 
+   */
+  public function previewAction($token) {
+    $em = $this->getDoctrine()->getManager();
+    $entity = $em->getRepository('ebarbeitoJobeetBundle:Job')->findOneByToken($token);
+
+    if (!$entity) {
+      throw $this->createNotFoundException('Unable to find Job entity.');
+    }
+
+    $deleteForm = $this->createDeleteForm($entity->getId());
+
+    return $this->render('ebarbeitoJobeetBundle:Job:show.html.twig', array(
+      'entity' => $entity,
+      'delete_form' => $deleteForm->createView(),
+    ));
+  }
 
   /**
    * Displays a form to edit an existing Job entity.
@@ -170,7 +190,12 @@ class JobController extends Controller {
       $em->persist($entity);
       $em->flush();
 
-      return $this->redirect($this->generateUrl('ebarbeito_job_edit', array('token' => $token)));
+      return $this->redirect($this->generateUrl('ebarbeito_job_preview', array(
+        'company' => $entity->getCompanySlug(),
+        'location' => $entity->getLocationSlug(),
+        'token' => $entity->getToken(), 
+        'position' => $entity->getPositionSlug()
+      )));
     }
 
     return $this->render('ebarbeitoJobeetBundle:Job:edit.html.twig', array(

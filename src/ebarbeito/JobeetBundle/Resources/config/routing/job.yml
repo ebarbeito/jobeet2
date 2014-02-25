@@ -8,6 +8,12 @@ ebarbeito_job_show:
     requirements:
         id:  \d+
 
+ebarbeito_job_preview:
+    pattern:  /{company}/{location}/{token}/{position}
+    defaults: { _controller: "ebarbeitoJobeetBundle:Job:preview" }
+    requirements:
+        token:  \w+
+
 ebarbeito_job_new:
     pattern:  /new
     defaults: { _controller: "ebarbeitoJobeetBundle:Job:new" }
